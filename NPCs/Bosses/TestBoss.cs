@@ -43,9 +43,8 @@ namespace iridium.NPCs.Bosses {
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
             Vector2 target = npc.HasPlayerTarget ? player.Center : Main.npc[npc.target].Center;
-            Vector2 direction = npc.Center - player.Center;
-            float rotation = (float) Math.Atan2(direction.Y, direction.X);
-            npc.rotation = rotation + ((float)Math.PI * 0.5f);
+            Vector2 direction;
+            float rotation;
             npc.netAlways = true;
             npc.TargetClosest(true);
             
@@ -75,10 +74,16 @@ namespace iridium.NPCs.Bosses {
             float distance = Vector2.Distance(target, npc.Center);
             if(npc.ai[0] < 300) {
                 frame = 0;
+                direction = npc.Center - player.Center;
+                rotation = (float) Math.Atan2(direction.Y, direction.X);
+                npc.rotation = rotation + ((float)Math.PI * 0.5f);
                 npc.damage = 100;
                 MoveTwards(npc, target, (distance > 300 ? 13f : 7f), 30f);
                 npc.netUpdate = true;
             } else if(npc.ai[0] >= 300 && npc.ai[0] < 450) {
+                direction = npc.Center - player.Center;
+                rotation = (float) Math.Atan2(direction.Y, direction.X);
+                npc.rotation = rotation + ((float)Math.PI * 0.5f);
                 stunned = true;
                 npc.damage = 50;
                 npc.defense = 100;
@@ -90,16 +95,22 @@ namespace iridium.NPCs.Bosses {
                 npc.defense = 50;
 
                 if(!fastSpeed) {
+                    direction = npc.Center - player.Center;
+                    rotation = (float) Math.Atan2(direction.Y, direction.X);
+                    npc.rotation = rotation + ((float)Math.PI * 0.5f);
                     fastSpeed = true;
                 } else {
-                    if(npc.ai[0] % 50 ==0) {
+                    if(npc.ai[0] % 50 == 0) {
                         frame = 1;
-                        float speed = 12f;
+                        float speed = 14f;
                         Vector2 vector = new Vector2(npc.position.X + (float) npc.width * 0.5f, npc.position.Y + (float) npc.height * 0.5f);
                         float x = player.position.X + (float) (player.width / 2) - vector.X;
                         float y = player.position.Y + (float) (player.height / 2) - vector.Y;
                         float distance2 = (float)Math.Sqrt(x * x + y * y);
                         float factor = speed / distance2;
+                        direction = npc.Center - player.Center;
+                        rotation = (float) Math.Atan2(direction.Y, direction.X);
+                        npc.rotation = rotation + ((float)Math.PI * 0.5f);
                         npc.velocity.X = x * factor;
                         npc.velocity.Y = y * factor;
                     }
