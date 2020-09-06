@@ -7,7 +7,9 @@ using Terraria.ModLoader;
 namespace iridium.NPCs.Bosses.SandDragon {
     class SandDragon : ModNPC {
 
+        //AI
         int frame;
+        int waitTime;
 
         public override void SetStaticDefaults() {
             Main.npcFrameCount[npc.type] = 1;
@@ -29,7 +31,7 @@ namespace iridium.NPCs.Bosses.SandDragon {
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.buffImmune[24] = true;
-			music = MusicID.Boss2;
+			music = MusicID.Boss5;
         }
 
         public override void AI() {
@@ -53,29 +55,36 @@ namespace iridium.NPCs.Bosses.SandDragon {
             
             npc.ai[0]++;
             float distance = Vector2.Distance(target, npc.Center);
-            if(npc.ai[0] < 500) {
+            if(npc.ai[0] < 100) {
+                npc.damage = 40;
                 frame = 0;
+                npc.velocity.Y = -0.1f;
                 if(npc.position.X > player.position.X) {
-                    npc.spriteDirection = 1;
-                } else {
-                    npc.spriteDirection = 0;
-                }
+                        npc.spriteDirection = 1;
+                        direction = player.Center - npc.Center;
+                        rotation = (float) Math.Atan2(direction.Y, direction.X) - (float) Math.PI;
+                    } else {
+                        npc.spriteDirection = 0;
+                        direction = player.Center - npc.Center;
+                        rotation = (float) Math.Atan2(direction.Y, direction.X);
+                    }
+                    npc.rotation = rotation;
                 npc.netUpdate = true;
-            } else if(npc.ai[0] >= 500 && npc.ai[0] < 950) {
-                if(npc.ai[0] % 40 == 0) {
+            } else if(npc.ai[0] >= 100 && npc.ai[0] < 650) {
+                if(npc.ai[0] % 50 == 0) {
                     npc.spriteDirection = 0;
+                    npc.damage = 80;
                     frame = 1;
-                    float speed = 20f;
+                    float speed = 10f;
                     Vector2 vector = new Vector2(npc.position.X + (float) npc.width * 0.5f, npc.position.Y + (float) npc.height * 0.5f);
                     float x = player.position.X + (float) (player.width / 2) - vector.X;
                     float y = player.position.Y + (float) (player.height / 2) - vector.Y;
                     float distance2 = (float)Math.Sqrt(x * x + y * y);
                     float factor = speed / distance2;
-                    
                     if(npc.position.X > player.position.X) {
                         npc.spriteDirection = 1;
                         direction = player.Center - npc.Center;
-                        rotation = -(float) Math.Atan2(direction.Y, direction.X) - (float) Math.PI;
+                        rotation = (float) Math.Atan2(direction.Y, direction.X) - (float) Math.PI;
                     } else {
                         npc.spriteDirection = 0;
                         direction = player.Center - npc.Center;
@@ -88,7 +97,40 @@ namespace iridium.NPCs.Bosses.SandDragon {
                     frame = 2;
                 }
                 npc.netUpdate = true;
+            } else if(npc.ai[0] >= 650 && npc.ai[0] < 1000) {
+                frame = 2;
+                npc.damage = 40;
+
+                if(npc.position.X > player.position.X) {
+                    npc.spriteDirection = 1;
+                    direction = player.Center - npc.Center;
+                    rotation = (float) Math.Atan2(direction.Y, direction.X) - (float) Math.PI;
+                } else {
+                    npc.spriteDirection = 0;
+                    direction = player.Center - npc.Center;
+                    rotation = (float) Math.Atan2(direction.Y, direction.X);
+                }
+                npc.rotation = rotation;
+                MoveTwards(npc, target, 5f, 0f);
+                npc.netUpdate = true;
+            } else if(npc.ai[0] > 1000) {
+                npc.ai[0] = 100;
             }
+        }
+
+        private void MoveTwards(NPC nPC, Vector2 playerTarget, float speed, float turnResistance) {
+            var move = playerTarget - npc.Center;
+            float length = move.Length();
+            if(length > speed) {
+                move *= speed / length;
+            }
+            
+            move = (npc.velocity * turnResistance + move) / (turnResistance + 1f);
+            length = move.Length();
+            if(length > speed) {
+                move *= speed / length;
+            }
+            npc.velocity = move;
         }
     }
 }
