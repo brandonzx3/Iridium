@@ -1,0 +1,92 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "tModLoader.CodeAssist/0.1.1": {
+        "type": "package"
+      }
+    }
+  },
+  "libraries": {
+    "tModLoader.CodeAssist/0.1.1": {
+      "sha512": "bUQ4HAiRYq8Zisms7FI9ffSf4nZHwFFZU5j8Hpc/9rFB16GOGJg2ulHV0ZDErzoAAbXBeRdO8/VbSltBwmDcpA==",
+      "type": "package",
+      "path": "tmodloader.codeassist/0.1.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NugetIcon.png",
+        "analyzers/dotnet/cs/tModLoader.CodeAssist.dll",
+        "tmodloader.codeassist.0.1.1.nupkg.sha512",
+        "tmodloader.codeassist.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "tModLoader.CodeAssist >= 0.1.*"
+    ]
+  },
+  "packageFolders": {
+    "/home/brandonzx3/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/iridium.csproj",
+      "projectName": "iridium",
+      "projectPath": "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/iridium.csproj",
+      "packagesPath": "/home/brandonzx3/.nuget/packages/",
+      "outputPath": "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/brandonzx3/.nuget/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "dependencies": {
+          "tModLoader.CodeAssist": {
+            "target": "Package",
+            "version": "[0.1.*, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.401/RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/iridium.csproj": {}
+  },
+  "projects": {
+    "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/iridium.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/iridium.csproj",
+        "projectName": "iridium",
+        "projectPath": "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/iridium.csproj",
+        "packagesPath": "/home/brandonzx3/.nuget/packages/",
+        "outputPath": "/home/brandonzx3/.local/share/Terraria/ModLoader/Mod Sources/iridium/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/brandonzx3/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "tModLoader.CodeAssist": {
+              "target": "Package",
+              "version": "[0.1.*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.401/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
