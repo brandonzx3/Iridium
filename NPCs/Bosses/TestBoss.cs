@@ -10,7 +10,6 @@ namespace iridium.NPCs.Bosses {
         //AI
         Boolean stunned;
         int stunnedTimer;
-        int attackTimer = 0;
         Boolean fastSpeed = false;
 
         int frame = 0;
