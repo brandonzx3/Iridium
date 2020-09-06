@@ -11,7 +11,7 @@ namespace iridium.NPCs.Bosses.SandDragon {
         int frame;
         int waitTime;
         Boolean phase2 = false;
-        int attackTimer = 0;
+        Vector2 shootPos;
 
         public override void SetStaticDefaults() {
             Main.npcFrameCount[npc.type] = 1;
@@ -123,12 +123,17 @@ namespace iridium.NPCs.Bosses.SandDragon {
                     }
                     npc.rotation = rotation;
                     MoveTwards(npc, target, 5f, 0f);
-                    Vector2 shootPos = npc.Center;
+                    if(npc.position.X > player.position.X) {
+                        shootPos = new Vector2(npc.Center.X - 100, npc.Center.Y -50);
+                    } else {
+                        shootPos = new Vector2(npc.Center.X + 100, npc.Center.Y - 50);
+                    }
+
                     float accuracy = 5f * (npc.life / npc.lifeMax);
                     Vector2 shootVel = target - shootPos + new Vector2(Main.rand.NextFloat(-accuracy, accuracy), Main.rand.NextFloat(-accuracy, accuracy));
                     shootVel.Normalize();
                     shootVel *= 7.5f;
-                    Projectile.NewProjectile(shootPos.X + (float) (-100 * npc.direction) + (float) Main.rand.Next(-40, 41), shootPos.Y - (float) Main.rand.Next(-50, 40), shootVel.X, shootVel.Y, npc.damage, 500, 5f);
+                    Projectile.NewProjectile(shootPos.X + (float) (-100 * npc.direction) + (float) Main.rand.Next(-40, 41), shootPos.Y - (float) Main.rand.Next(-50, 40), shootVel.X, shootVel.Y, ProjectileID.FlamesTrap, npc.damage, 5f);
                     npc.netUpdate = true;
                 } else if(npc.ai[0] > 1000) {
                     npc.ai[0] = 100;
@@ -136,6 +141,7 @@ namespace iridium.NPCs.Bosses.SandDragon {
             } else if(npc.ai[1] != -1) {
                 //phase 2
                 if(npc.ai[1] < 70) {
+                    frame =3;
                     if(!phase2) {
                         Main.PlaySound(SoundID.Roar);
                         phase2 = true;
