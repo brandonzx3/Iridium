@@ -13,8 +13,11 @@ namespace iridium.NPCs.Bosses {
         int attackTimer = 0;
         Boolean fastSpeed = false;
 
+        int frame = 0;
+        //double counting;
+
         public override void SetStaticDefaults() {
-            Main.npcFrameCount[npc.type] = 1;
+            Main.npcFrameCount[npc.type] = 2;
         }
 
         public override void SetDefaults() {
@@ -40,7 +43,9 @@ namespace iridium.NPCs.Bosses {
             npc.TargetClosest(true);
             Player player = Main.player[npc.target];
             Vector2 target = npc.HasPlayerTarget ? player.Center : Main.npc[npc.target].Center;
-            npc.rotation = 0f;
+            Vector2 direction = npc.Center - player.Center;
+            float rotation = (float) Math.Atan2(direction.Y, direction.X);
+            npc.rotation = rotation + ((float)Math.PI * 0.5f);
             npc.netAlways = true;
             npc.TargetClosest(true);
             
@@ -69,6 +74,7 @@ namespace iridium.NPCs.Bosses {
             npc.ai[0]++;
             float distance = Vector2.Distance(target, npc.Center);
             if(npc.ai[0] < 300) {
+                frame = 0;
                 npc.damage = 100;
                 MoveTwards(npc, target, (distance > 300 ? 13f : 7f), 30f);
                 npc.netUpdate = true;
@@ -87,6 +93,7 @@ namespace iridium.NPCs.Bosses {
                     fastSpeed = true;
                 } else {
                     if(npc.ai[0] % 50 ==0) {
+                        frame = 1;
                         float speed = 12f;
                         Vector2 vector = new Vector2(npc.position.X + (float) npc.width * 0.5f, npc.position.Y + (float) npc.height * 0.5f);
                         float x = player.position.X + (float) (player.width / 2) - vector.X;
@@ -106,7 +113,15 @@ namespace iridium.NPCs.Bosses {
             }
         }
 
+        public override void FindFrame(int FrameHeight) {
+            if(frame == 0) {
+                npc.frame.Y = 0;
+            }
 
+            if(frame == 1) {
+                npc.frame.Y = FrameHeight;
+            }
+        }
 
         private void MoveTwards(NPC nPC, Vector2 playerTarget, float speed, float turnResistance) {
             var move = playerTarget - npc.Center;
